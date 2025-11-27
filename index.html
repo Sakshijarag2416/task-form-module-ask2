@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2 - Task Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+        }
+        #box {
+            background: #fff;
+            width: 430px;
+            margin-top: 40px;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        h2 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input, textarea, select, button {
+            width: 100%;
+            margin-top: 6px;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        input, textarea, select {
+            border: 1px solid gray;
+        }
+        button {
+            border: none;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #005fcc;
+        }
+        .error {
+            color: red;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+        .success {
+            color: green;
+            font-size: 16px;
+            margin-top: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<div id="box">
+    <h2>Task Form</h2>
+
+    <label>Title *</label>
+    <input type="text" id="title" maxlength="100">
+
+    <label>Description (Optional)</label>
+    <textarea id="desc" maxlength="500"></textarea>
+
+    <label>Priority *</label>
+    <select id="priority">
+        <option value="">Select Priority</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
+
+    <label>Due Date *</label>
+    <input type="date" id="dueDate">
+
+    <label>Status</label>
+    <select id="status">
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <button id="submitBtn" onclick="submitTask()">Submit</button>
+
+    <div id="errorMsg" class="error"></div>
+    <div id="successMsg" class="success"></div>
+</div>
+
+
+<script>
+    function submitTask() {
+        let title = document.getElementById("title").value.trim();
+        let desc = document.getElementById("desc").value.trim();
+        let priority = document.getElementById("priority").value;
+        let dueDate = document.getElementById("dueDate").value;
+        let status = document.getElementById("status").value;
+        let error = document.getElementById("errorMsg");
+        let success = document.getElementById("successMsg");
+        let btn = document.getElementById("submitBtn");
+
+        error.innerHTML = "";
+        success.innerHTML = "";
+
+        // Validation
+        if (title === "") {
+            error.innerHTML = "⚠ Title is required.";
+            return;
+        }
+        if (priority === "") {
+            error.innerHTML = "⚠ Please select a priority.";
+            return;
+        }
+        if (dueDate === "") {
+            error.innerHTML = "⚠ Due Date is required.";
+            return;
+        }
+
+        // Disable button while submitting
+        btn.disabled = true;
+        btn.innerHTML = "Submitting...";
+
+        // Simulated delay to show loading
+        setTimeout(() => {
+            // Success message
+            success.innerHTML = "🎉 Task submitted successfully!";
+
+            // Reset form
+            document.getElementById("title").value = "";
+            document.getElementById("desc").value = "";
+            document.getElementById("priority").value = "";
+            document.getElementById("dueDate").value = "";
+            document.getElementById("status").value = "Pending";
+
+            btn.disabled = false;
+            btn.innerHTML = "Submit";
+        }, 800);
+    }
+</script>
+</body>
+</html>
